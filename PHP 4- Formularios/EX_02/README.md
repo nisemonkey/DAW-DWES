@@ -1,4 +1,4 @@
-# Practica 4
+# Práctica 4
 
 ## Ejercicio 2
 
