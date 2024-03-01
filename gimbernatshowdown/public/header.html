@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Showdown</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div id="container">
+        <header class="navbar">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="img/logo.png" alt="Pokemon Logo">
+                </a>
+            </div>
+            <div class="user-info">
+                <!-- Nombre de usuario -->
+                <span id="usernameDisplay"></span>
+
+                <!-- Botón "Registrar nombre" -->
+                <a href="login.html" class="button" style="text-decoration: none; color: white; " id="registerButton">Iniciar Sesión</a>
+                
+                <div class="settings">
+                    <a href="settings.html">
+                        <img src="img/settings.png" alt="Settings Icon">
+                    </a>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <script>
+        window.addEventListener("load", function() {
+            // Verificar si hay un nombre de usuario en sessionStorage
+            let username = sessionStorage.getItem('username');
+            if (username) {
+                // Si hay un nombre de usuario, mostrarlo y ocultar el botón "Registrar nombre"
+                document.getElementById("usernameDisplay").innerText = username;
+                document.getElementById("registerButton").style.display = "none";
+            } else {
+                // Si no hay un nombre de usuario, ocultar el nombre de usuario y mostrar el botón "Registrar nombre"
+                document.getElementById("usernameDisplay").style.display = "none";
+            }
+        });
+
+        // Agregar evento de clic al nombre de usuario para eliminar el nombre de usuario del sessionStorage
+        document.getElementById("usernameDisplay").addEventListener("click", function(event) {
+            sessionStorage.removeItem("username");
+            // Actualizar el texto del nombre de usuario para borrarlo de la pantalla y mostrar el botón "Registrar nombre"
+            document.getElementById("usernameDisplay").style.display = "none";
+            document.getElementById("registerButton").style.display = "block";
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+version: '3'
+services:
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data/mongodb:/data/db
+    networks:
+      - my-network
+
+  nodeapp:
+    build: 
+      context: ./
+      args:
+        NODE_ENV: development
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./:/app  # Montar la carpeta de la aplicación Node.js en el contenedor
+    depends_on:
+      - mongodb
+    command: [ "npm", "run", "start-dev" ]
+    networks:
+      - my-network
+
+networks:
+  my-network:

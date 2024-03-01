@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Pokemon Showdown</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+     <!-- Incluye el header -->
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script>
+         $(function(){
+             $("#header").load("header.html"); 
+         });
+     </script>
+     <div id="header"></div>
+     <!-- Fin del include -->
+    <!-- Contenido del formulario de inicio de sesión -->
+    <div class="login-content">
+        <h1>Bienvenido a Gimbernat Showdown</h1>
+        <p>Por favor, inicia sesión para continuar.</p>
+
+        <!-- Formulario de inicio de sesión -->
+        <form id="loginForm">
+            <label for="username">Usuario:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Confirmar</button>
+            <button type="button" onclick="window.location.href = 'index.html';">Volver</button>
+        </form>
+    </div>
+     <!-- Incluye el footer -->
+     <script>
+        $(function(){
+            $("#footer").load("footer.html"); 
+        });
+    </script>
+    <div id="footer"></div>
+    <!-- Fin del include -->
+
+    <!-- Importar jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+        // Manejar el envío del formulario de inicio de sesión
+            $('#loginForm').submit(async function(event) {
+                event.preventDefault(); // Evitar que el formulario se envíe automáticamente
+
+                var username = $('#username').val();
+                var password = $('#password').val();
+
+                // Realizar la comprobación de credenciales directamente desde el frontend
+                try {
+                    const response = await fetch('/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ username: username, password: password })
+                    });
+
+                    if (response.ok) {
+                        // Si las credenciales son válidas, guardar el nombre de usuario en sessionStorage
+                        sessionStorage.setItem('username', username);
+
+                        // Redirigir al usuario a la página principal
+                        window.location.href = 'index.html';
+                    } else {
+                        // Si las credenciales son inválidas, mostrar un mensaje de error
+                        alert('Usuario o contraseña incorrectos');
+                    }
+                } catch (error) {
+                    console.error('Error en la autenticación:', error);
+                    alert('Error en la autenticación');
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>

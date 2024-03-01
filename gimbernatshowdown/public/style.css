@@ -1,0 +1,487 @@
+/* Index */
+
+body, html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+#container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 0vh; /* Altura mínima del 100% del viewport */
+}
+
+.navbar {
+    background-color: #394240;
+    color: #ffffff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img,
+.settings img {
+    max-height: 50px;
+    cursor: pointer;
+}
+
+.user-info {
+    color: #ffffff;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.settings img {
+    max-height: 30px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.logo,
+.user-info,
+.settings {
+    display: flex;
+    align-items: center;
+}
+
+.user-info {
+    flex-grow: 1;
+    justify-content: right;
+}
+
+footer {
+    background-color: #394240;
+    color: #ffffff;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+/* Nuevo estilo para los contenidos */
+.content-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Permite el ajuste en pantallas pequeñas */
+    padding: 20px; /* Ajusta según sea necesario */
+}
+
+.battle-options,
+.forum {
+    width: 48%; /* Ocupa el 48% del espacio disponible */
+    height: 795px; /* Altura fija ajustable según sea necesario */
+    box-sizing: border-box; /* Añadido para incluir el padding en el ancho total */
+    margin-bottom: 20px; /* Espacio entre los divs */
+}
+
+.battle-options {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center; /* Centra el contenido */
+}
+
+.battle-options label {
+    display: block; /* Hace que cada label ocupe todo el ancho y se muestre uno encima de otro */
+    margin-top: 80px;
+    margin-bottom: 30px; /* Ajusta según sea necesario para una mayor separación de altura */
+    font-family: 'Arial', sans-serif; /* Cambia la fuente según tu preferencia */
+    font-size: 18px; /* Ajusta el tamaño de la fuente */
+    color: #333333; /* Cambia el color del texto */
+}
+
+.battle-options select {
+    width: calc(100% - 20px); /* Ajusta según sea necesario */
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    
+    /* Oculta la flecha del desplegable */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: none;
+    font-family: 'Arial', sans-serif; /* Cambia la fuente según tu preferencia */
+    font-size: 16px; /* Ajusta el tamaño de la fuente */
+    color: #555555; /* Cambia el color del texto */
+}
+
+.battle-options button {
+    width: calc(100% - 20px); /* Ajusta según sea necesario */
+    margin-top: 80px;
+    padding: 10px; /* Ajusta según sea necesario */
+    font-family: 'Arial', sans-serif; /* Cambia la fuente según tu preferencia */
+    font-size: 18px; /* Ajusta el tamaño de la fuente */
+    color: #ffffff; /* Cambia el color del texto */
+    background-color: #2a75b3; /* Cambia el color de fondo del botón */
+    border: none;
+    cursor: pointer;
+}
+
+.forum {
+    background-color: #e0e0e0;
+    padding: 20px;
+    text-align: center; /* Centra el contenido */
+}
+
+.chat-container {
+  width: 60%; /* Cambia el ancho al 60% */
+  max-width: 600px; /* Establece un ancho máximo */
+  margin: 0 auto; /* Centra horizontalmente */
+  height: 500px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-header {
+  background-color: #2a75b3;
+  color: white;
+  padding: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: scroll;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.chat-messages p {
+  margin: 8px 0;
+}
+
+.chat-input {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #fff;
+  border-top: 1px solid #ccc;
+}
+
+.chat-input input[type="text"] {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.chat-input button {
+  padding: 8px 15px;
+  background-color: #2a75b3;
+  margin-left: 7px;
+  margin-bottom: 12px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.chat-input button:hover {
+  background-color: #0d4675;
+}
+
+.own-message {
+  text-align: right;
+  margin-left: 25px;
+}
+
+.other-message {
+  text-align: left;
+  margin-right: 25px;
+}
+
+.server-message {
+  text-align: center;
+}
+
+
+/* Settings */
+
+.settings-page-content {
+    text-align: center;
+}
+
+.settings-form {
+    max-width: 400px;
+    margin: 140px auto; /* Ajusta el valor del margen superior según sea necesario */
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-family: 'Arial', sans-serif; /* Cambia la fuente según tu preferencia */
+    font-size: 18px; /* Ajusta el tamaño de la fuente */
+    color: #333333; /* Cambia el color del texto */
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    font-family: 'Arial', sans-serif; /* Cambia la fuente según tu preferencia */
+    font-size: 16px; /* Ajusta el tamaño de la fuente */
+    color: #555555; /* Cambia el color del texto */
+}
+
+button {
+    background-color: #2a75b3; /* Cambia el color de fondo del botón */
+    color: #ffffff; /* Cambia el color del texto */
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif; /* Cambia la fuente según tu preferencia */
+    font-size: 18px; /* Ajusta el tamaño de la fuente */
+}
+
+/* Teams */
+
+.team-select {
+  position: relative;
+  display: inline-block;
+}
+
+.team-options {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.team-option {
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+.team-option:hover {
+  background-color: #f1f1f1;
+}
+
+.selected-team {
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+
+
+.teams-page-content {
+    padding: 20px; /* Espacio interior para el contenido específico de Teams */
+}
+
+.centered-div {
+    margin: 20px; /* Márgenes a los lados y arriba/abajo */
+    padding: 20px; /* Espacio interior del div centrado */
+    text-align: center; /* Centra el contenido dentro del div */
+    background-color: #f0f0f0; /* Color de fondo del div centrado */
+    border: 2px solid #ccc; /* Borde del div centrado */
+    height: calc(100vh - 200px); /* Altura fija, ajusta según sea necesario (considerando navbar y footer) */
+    overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
+}
+
+#userDetailsContainer {
+  display: none; /* Ocultar el contenedor inicialmente */
+  position: fixed; /* Cambiar a posición fija */
+  top: 50%; /* Centrar verticalmente */
+  left: 50%; /* Centrar horizontalmente */
+  transform: translate(-50%, -50%); /* Centrar */
+  background-color: #f0f0f0; /* Fondo gris */
+  padding: 20px; /* Añadir espacio alrededor del contenido */
+  border-radius: 5px; /* Añadir bordes redondeados */
+  z-index: 999; /* Asegurar que esté por encima del overlay */
+}
+
+#overlay {
+  display: none; /* Ocultar el overlay inicialmente */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo negro semitransparente */
+  z-index: 998; /* Colocar el overlay por debajo del contenedor */
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* fondo semi-transparente */
+  z-index: 9999; /* asegura que el pop-up esté en la parte superior */
+  overflow: auto; /* permite hacer scroll si el contenido es demasiado largo */
+}
+  
+.popup-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fefefe;
+  padding: 40px; /* Aumenta el padding para hacer el contenido más grande */
+  border-radius: 5px;
+  font-size: 18px; /* Ajusta el tamaño de la fuente */
+  width: 80%; /* ancho del pop-up */
+  max-width: 600px; /* ancho máximo del pop-up */
+}
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+/* Centrado de los Pokemon a seleccionar para tu equipo */
+
+#teamBuilderMenu table {
+    margin: 0 auto; /* Centrar la tabla horizontalmente */
+    border-collapse: collapse;
+  }
+  
+  #teamBuilderMenu table th,
+  #teamBuilderMenu table td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  #teamBuilderMenu table img {
+    display: block;
+    margin: 0 auto; /* Centrar las imágenes horizontalmente */
+  }
+  
+  /* Estilo para la fila seleccionada */
+#teamBuilderMenu table tr[name$="-selected"] {
+    background-color: lightblue; /* Cambia el color de fondo a lightblue */
+  }
+  
+  
+  
+
+  /*********************************************************/
+  
+  .pokemon-card {
+    display: inline-block;
+    width: 100px;
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid #000; /* Borde sólido de 2px */
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .pokemon-card img {
+    width: 80px; /* Ancho de la imagen del Pokémon */
+    height: 80px; /* Altura de la imagen del Pokémon */
+    display: block;
+    margin: 0 auto 10px; /* Centrar la imagen verticalmente */
+  }
+  
+  .pokemon-card span {
+    display: block;
+    font-weight: bold;
+  }
+  
+  /* Estilos para la tabla */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  tbody tr:hover {
+    cursor: pointer; /* Cambiar cursor al pasar por encima */
+    background-color: #f0f0f0; /* Cambiar color de fondo al pasar por encima */
+  }
+
+  #searchInput {
+    display: none;
+    border-radius: 5px;
+    width: 300px;
+    height: 20px;
+    border: 1px solid #2a75b3;
+  }
+  
+  .img-card {
+    display: inline-block;
+    width: 150px;
+    height: 210px;
+    background-image: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/4f7705ec-8c49-4eed-a56e-c21f3985254c/dah43cy-a8e121cb-934a-40f6-97c7-fa2d77130dd5.png/v1/fill/w_1024,h_1420/pokemon_card_backside_in_high_resolution_by_atomicmonkeytcg_dah43cy-fullview.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTQyMCIsInBhdGgiOiJcL2ZcLzRmNzcwNWVjLThjNDktNGVlZC1hNTZlLWMyMWYzOTg1MjU0Y1wvZGFoNDNjeS1hOGUxMjFjYi05MzRhLTQwZjYtOTdjNy1mYTJkNzcxMzBkZDUucG5nIiwid2lkdGgiOiI8PTEwMjQifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.9GzaYS7sd8RPY5FlHca09J9ZQZ9D9zI69Ru-BsbkLDA');
+    background-size: cover;
+    cursor: pointer;
+}
+
+.equipo-container {
+  display: inline-block;
+  vertical-align: top;
+  width: 45%; /* Ancho del contenedor de equipo */
+  margin-right: 5%; /* Espacio entre los dos contenedores */
+}
+
+.pokemon-item {
+  list-style: none;
+}
+
+.pokemon-image {
+  max-width: 20px; /* Ancho máximo de la imagen del Pokémon */
+  height: 20px; /* Altura automática según el ancho */
+  margin-bottom: 10px; /* Espacio entre cada imagen de Pokémon */
+}
+
+.battle-options,
+.forumbattle {
+    width: calc(50% - 20px); /* Ocupa el 50% menos el espacio entre ellos */
+    max-width: calc(50% - 20px); /* Máximo 50% menos el espacio entre ellos */
+    height: 795px; /* Altura fija ajustable según sea necesario */
+    box-sizing: border-box; /* Añadido para incluir el padding en el ancho total */
+    margin-bottom: 20px; /* Espacio entre los divs */
+}
+
+.battle-options {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center; /* Centra el contenido */
+}

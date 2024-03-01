@@ -1,0 +1,35 @@
+<footer>
+    <p>© 2024 Gimbernat Showdown</p>
+</footer>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+$('#toggleButton').click(function() {
+$('#overlay').toggle(); // Alternar la visibilidad del overlay
+$('#userDetailsContainer').toggle(); // Alternar la visibilidad del contenedor
+});
+
+$('#overlay').click(function() {
+$('#overlay').hide(); // Ocultar el overlay al hacer clic en él
+$('#userDetailsContainer').hide(); // Ocultar el contenedor al hacer clic en el overlay
+});
+});
+document.getElementById('registerButton').addEventListener('click', function() {
+document.getElementById('popupContainer').style.display = 'block';
+});
+
+document.getElementById('cancelBtn').addEventListener('click', function() {
+document.getElementById('popupContainer').style.display = 'none';
+});
+
+document.getElementById('saveUsernameBtn').addEventListener('click', function() {
+var username = document.getElementById('usernameInput').value;
+document.getElementById('userLink').innerText = username;
+document.getElementById('popupContainer').style.display = 'none';
+document.getElementById('userDetailsContainer').style.display = 'block';
+});
+
+</script>
+</body>
+</html>

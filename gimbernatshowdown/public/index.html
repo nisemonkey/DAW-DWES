@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Showdown</title>
+    <link rel="stylesheet" type="text/css" href="style.css">    
+</head>
+<body>
+    <div id="container">
+        <!-- Incluye el header -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(function(){
+                $("#header").load("header.html"); 
+            });
+        </script>
+        <div id="header"></div>
+        <!-- Fin del include -->
+
+        <!-- Nuevo contenido -->
+        <div class="content-container">
+            <div class="battle-options">
+                <label class="div-comb1" for="combat-type">Tipo de combate</label>
+                <select class="div-comb2" id="combat-type">
+                    <option value="single">Individual</option>
+                </select>
+
+                <div id="team-container" class="team-container" style="margin-top: 20px;">Equipos</div>
+                
+                <!-- Ajustado para redirigir a chat.html -->
+                <button class="div-comb1" id="edit-teams-btn" onclick="verificarLogueo('edit')">Editar Equipos</button>
+                <button class="div-comb1" id="start-battle-btn" onclick="verificarLogueo('combat')">Combatir</button>                
+            </div>
+
+            <!-- Contenido del foro -->
+            <div class="forum">
+                <h2>Foro Pokemon Showdown</h2>
+                <p>Bienvenido al foro. Puedes publicar tus comentarios y participar en discusiones.</p>
+                <div class="chat-container">
+                    <div class="chat-header">Dialoga con otros usuarios!</div>
+                    <div id="chat-box" class="chat-messages"></div>
+                    <div class="chat-input">
+                        <input type="text" id="input-msg" placeholder="Escribe un mensaje...">
+                        <button id="send-btn">Enviar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fin del nuevo contenido -->
+        <!-- Incluye el footer -->
+        <script>
+            $(function(){
+                $("#footer").load("footer.html"); 
+            });
+        </script>
+        <div id="footer"></div>
+        <!-- Fin del include -->
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+    <script>
+    function verificarLogueo(action) {
+        let username = sessionStorage.getItem('username');
+        let team = sessionStorage.getItem('userTeam_0');
+        let combatbtn = document.getElementById('start-battle-btn');
+
+        if (!username) {
+            alert('Debes iniciar sesión para realizar esta acción.');
+        } else {
+            // Si el usuario está logueado, dependiendo de la acción, realiza la acción correspondiente
+            if (action === 'edit') {
+                window.location.href = 'teams.html'; // Redirige a la página de equipos
+            } else if (action === 'combat') {
+                if (team) {
+                    // Si el usuario tiene un equipo, emitir la solicitud de inicio de combate al servidor
+                    socket.emit('startcombatrequest');
+                    combatbtn.innerHTML = "Esperando..."
+                    document.getElementById("start-battle-btn").disabled = true;
+                } else {
+                    alert("No tienes equipos para jugar.");
+                }
+            }
+        }
+    }
+    </script>
+    <script src="chat.js"></script>
+</body>
+</html>

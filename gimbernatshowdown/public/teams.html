@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Showdown - Teams</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* fondo semi-transparente */
+            z-index: 9999; /* asegura que el pop-up esté en la parte superior */
+            overflow: auto; /* permite hacer scroll si el contenido es demasiado largo */
+        }
+
+        .popup-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fefefe;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .team-images {
+            text-align: center;
+        }
+
+        .img-card {
+            display: inline-block;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .delete-team-btn {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .delete-team-btn:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <!-- Incluye el header -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(function(){
+                $("#header").load("header.html"); 
+            });
+        </script>
+        <div id="header"></div>
+        <!-- Fin del include -->
+
+        <!-- Contenido específico de la página de Teams -->
+        <div class="centered-div">
+            <h2>Teams</h2>
+            <div id="teamCardsContainer"></div>
+            <div id="selectedPokemonContainer"></div>
+            <button id="teambuilder" style="margin-bottom: 10px;">Crear equipo</button>
+            <input type="text" id="searchInput" placeholder="Buscar Pokémon por nombre...">
+
+            <div id="teamBuilderMenu" style="display: none;">
+                <!-- Aquí se mostrarán las tarjetas vacías y la lista de nombres de Pokémon -->
+            </div>
+            <!-- Mensaje de carga -->
+            <span id="loadingMessage"></span>
+        </div>
+        <!-- Fin del contenido específico -->
+
+        <!-- Incluye el footer -->
+        <script>
+            $(function(){
+                $("#footer").load("footer.html"); 
+            });
+        </script>
+        <div id="footer"></div>
+        <!-- Fin del include -->
+    </div>
+
+    <script src="get_pkm.js"></script>
+    <script>
+    $(document).ready(function() {
+        // Obtener el nombre de usuario del sessionStorage
+        var username = sessionStorage.getItem('username');
+
+        // Verificar si el usuario está logueado
+        if (!username) {
+            alert('Debes iniciar sesión para ver los equipos.');
+            return; // Evitar continuar si el usuario no está logueado
+        }
+
+        // Hacer una solicitud GET para obtener los equipos personales del usuario actual
+        $.get('/get-personalteams', { username: username }, function(teams) {
+            teams.forEach(function(team) {
+                // Accede al ID del equipo y a los datos del equipo
+                var teamId = team._id; // Suponiendo que el ID del equipo está almacenado en "_id"
+                var pokemonData = team.team;
+
+                // Crear un contenedor para el popup de este equipo
+                var popup = $('<div class="popup"></div>');
+
+                // Crear el contenido del popup
+                var popupContent = $('<div class="popup-content"></div>');
+
+                // Crear un contenedor para las imágenes de los Pokémon en el equipo
+                var imagesContainer = $('<div class="team-images"></div>');
+
+                // Iterar sobre los Pokémon en el equipo y crear una imagen para cada uno
+                pokemonData.forEach(function(pokemon) {
+                    var img = $('<img src="' + pokemon.sprites.normal + '" width="100" alt="' + pokemon.name + '">');
+                    imagesContainer.append(img);
+                });
+
+                // Crear el botón para cerrar el popup
+                var closeBtn = $('<span class="close">&times;</span>');
+                closeBtn.click(function() {
+                    popup.hide();
+                });
+
+                // Crear el botón para eliminar el equipo
+                var deleteBtn = $('<button class="delete-team-btn">Eliminar equipo</button>');
+                deleteBtn.click(function() {
+                    deleteTeam(teamId); // Utilizar el ID del equipo
+                });
+
+                // Agregar el contenido del popup al contenedor del popup
+                popupContent.append(imagesContainer);
+                popupContent.append(closeBtn);
+                popupContent.append(deleteBtn); // Agregar el botón eliminar
+
+                // Agregar el contenido del popup al popup
+                popup.append(popupContent);
+                
+                // Agregar el popup al contenedor de cartas de equipo
+                $("#teamCardsContainer").append(popup);
+
+                // Mostrar el popup al hacer clic en la imagen a modo de botón
+                var imgCard = $('<div class="img-card"></div>');
+                imgCard.click(function() {
+                    popup.show();
+                });
+                $("#teamCardsContainer").append(imgCard);
+            });
+        });
+
+    });
+      // Función para eliminar un equipo
+      function deleteTeam(teamId) {
+            // Confirmar si el usuario desea eliminar el equipo
+            var confirmation = confirm('¿Estás seguro de que deseas eliminar este equipo?');
+
+            if (confirmation) {
+                // Enviar la solicitud DELETE al servidor para eliminar el equipo
+                fetch('/delete-team/' + teamId, {
+                    method: 'DELETE'
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error al eliminar el equipo');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        // Si la eliminación es exitosa, ocultar el popup y recargar la página
+                        $('.popup').hide();
+                        location.reload(); // Recargar la página para refrescar la lista de equipos
+                    } else {
+                        // Manejar el caso de error de eliminación aquí, si es necesario
+                        console.error('Error al eliminar el equipo:', data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al eliminar el equipo:', error);
+                });
+            }
+        }
+
+
+
+        $(document).ready(function() {
+            // Código JavaScript para cargar equipos y gestionar interacciones aquí
+        });
+      </script>
+</body>
+</html>
+

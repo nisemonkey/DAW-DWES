@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Showdown</title>
+    <link rel="stylesheet" type="text/css" href="style.css">    
+</head>
+<body>
+    <div id="container">
+        <!-- Incluye el header -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(function(){
+                $("#header").load("header.html"); 
+            });
+        </script>
+        <div id="header"></div>
+        <!-- Fin del include -->
+        <div id="content-container">
+            <div id="battle-options">
+                <!-- Contenido del panel izquierdo -->
+            </div>
+        </div>    
+        <!-- Incluye el footer -->
+        <script>
+            $(function(){
+                $("#footer").load("footer.html"); 
+            });
+        </script>
+        <div id="footer"></div>
+        <!-- Fin del include -->
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+    <script src="battle.js"></script>
+    <script src="battlechat.js"></script>
+</body>
+</html>
