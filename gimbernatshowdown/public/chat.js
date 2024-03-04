@@ -5,6 +5,14 @@ const username = sessionStorage.getItem('username');
 // Manejar eventos de conexión y errores
 socket.on('connect', function() {
     console.log('Conexión establecida');
+    // Agregar evento de clic al nombre de usuario para eliminar el nombre de usuario del sessionStorage
+    document.getElementById("usernameDisplay").addEventListener("click", function(event) {
+        sessionStorage.removeItem("username");
+        // Actualizar el texto del nombre de usuario para borrarlo de la pantalla y mostrar el botón "Registrar nombre"
+        document.getElementById("usernameDisplay").style.display = "none";
+        document.getElementById("registerButton").style.display = "block";
+        window.location.href = 'index.html';
+    });
     verificarLogueoForo();
     // Verificar si hay un nombre de usuario en sessionStorage
     let username = sessionStorage.getItem('username');
@@ -18,14 +26,6 @@ socket.on('connect', function() {
         document.getElementById("usernameDisplay").style.display = "none";
     }
     obtenerMensajesDelServidor();
-    // Agregar evento de clic al nombre de usuario para eliminar el nombre de usuario del sessionStorage
-    document.getElementById("usernameDisplay").addEventListener("click", function(event) {
-        sessionStorage.removeItem("username");
-        // Actualizar el texto del nombre de usuario para borrarlo de la pantalla y mostrar el botón "Registrar nombre"
-        document.getElementById("usernameDisplay").style.display = "none";
-        document.getElementById("registerButton").style.display = "block";
-        window.location.href = 'index.html';
-    });
 });
 
 socket.on('message', function(data) {
