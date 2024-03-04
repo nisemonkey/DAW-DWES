@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokemon Showdown - Teams</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
     <style>
         .popup {
             display: none;
@@ -203,6 +204,33 @@
             // Código JavaScript para cargar equipos y gestionar interacciones aquí
         });
       </script>
+      <script>
+        const socket = io('http://localhost:3001'); // Conecta con el servidor Socket.IO en el puerto 3001
+        // Manejar eventos de conexión y errores
+        socket.on('connect', function() {
+            console.log('Conexión establecida');
+            // Agregar evento de clic al nombre de usuario para eliminar el nombre de usuario del sessionStorage
+            document.getElementById("usernameDisplay").addEventListener("click", function(event) {
+                sessionStorage.removeItem("username");
+                // Actualizar el texto del nombre de usuario para borrarlo de la pantalla y mostrar el botón "Registrar nombre"
+                document.getElementById("usernameDisplay").style.display = "none";
+                document.getElementById("registerButton").style.display = "block";
+                window.location.href = 'index.html';
+            });
+            // Verificar si hay un nombre de usuario en sessionStorage
+            let username = sessionStorage.getItem('username');
+            if (username) {
+                // Si hay un nombre de usuario, mostrarlo y ocultar el botón "Registrar nombre"
+                document.getElementById("usernameDisplay").innerText = username;
+                document.getElementById("registerButton").style.display = "none";
+                guardarEquiposUser(username);
+            } else {
+                // Si no hay un nombre de usuario, ocultar el nombre de usuario y mostrar el botón "Registrar nombre"
+                document.getElementById("usernameDisplay").style.display = "none";
+            }
+        });
+      </script>
 </body>
 </html>
+
 
